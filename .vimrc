@@ -31,8 +31,8 @@
 "    -> Visual mode related
 "    -> Moving around, tabs and buffers
 "    -> Status line
-"    -> Editing mappings
 "    -> vimgrep searching and cope displaying
+"    -> Editing mappings
 "    -> Spell checking
 "    -> Misc
 "    -> Helper functions
@@ -45,7 +45,41 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Sets how many lines of history VIM has to remember
 set history=700
+set nocompatible
+filetype off
 
+
+set rtp+=~/.vim/bundle/Vundle.vim
+
+call vundle#begin()
+
+Bundle 'tpope/vim-sensible'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-rake'
+Bundle 'tpope/vim-endwise'
+Bundle 'tpope/vim-unimpaired'
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'nanotech/jellybeans.vim'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/syntastic'
+Bundle 'kien/ctrlp.vim'
+Bundle 'rking/ag.vim'
+Bundle 'kana/vim-textobj-user'
+Bundle 'nelstrom/vim-textobj-rubyblock'
+Bundle 'slim-template/vim-slim'
+Bundle 'thoughtbot/vim-rspec'
+Bundle 'elixir-lang/vim-elixir'
+Bundle 'matze/vim-move'
+Bundle 'scrooloose/nerdcommenter'
+Plugin 'kchmck/vim-coffee-script'
+Bundle 'godlygeek/tabular'
+Bundle 'Konfekt/FastFold'
+
+call vundle#end()
+filetype plugin indent on
 " Enable filetype plugins
 filetype plugin on
 filetype indent on
@@ -60,6 +94,10 @@ let g:mapleader = ","
 
 " Fast saving
 nmap <leader>w :w!<cr>
+
+" Show files on nertree
+nmap ,r :NERDTreeFind<CR>
+nnoremap <C-e> :NERDTreeToggle<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -116,6 +154,16 @@ set novisualbell
 set t_vb=
 set tm=500
 
+" Send more characters for redraws
+set ttyfast
+"
+" " Enable mouse use in all modes
+set mouse=a
+"
+" " Set this to the name of your terminal that supports mouse codes.
+" " Must be one of: xterm, xterm2, netterm, dec, jsbterm, pterm
+set ttymouse=xterm2
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
@@ -160,8 +208,8 @@ set expandtab
 set smarttab
 
 " 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
+set shiftwidth=2
+set tabstop=2
 
 " Linebreak on 500 characters
 set lbr
@@ -393,3 +441,48 @@ function! <SID>BufcloseCloseIt()
      execute("bdelete! ".l:currentBufNum)
    endif
 endfunction
+
+" Hide pyc files
+let NERDTreeIgnore = ['\.pyc$']
+
+"Do not hide . files
+let NERDTreeShowHidden=1
+set nu
+
+" Copies the file name
+nnoremap <leader>cp  :let @*=expand("%:p")<CR>
+
+
+" RSpec.vim mappings
+map <Leader>t :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+map <Leader>a :call RunAllSpecs()<CR>
+
+let g:rspec_command = "!bundle exec rspec {spec}"
+:nmap p :pu<CR>
+set clipboard=unnamed
+
+
+:let @" = expand("%:p")
+:nmap cp :let @" = expand("%")
+let g:move_key_modifier = 'C'
+
+nnoremap tl :tabnext<CR>
+nnoremap th :tabprev<CR>
+nmap zuz (FastFoldUpdate)
+
+set foldenable          " enable folding
+set foldlevelstart=10   " open most folds by default
+set foldmethod=syntax   " fold based on syntax
+
+let g:fastfold_savehook = 1
+let g:fastfold_fold_command_suffixes = ['x','X','a','A','o','O','c','C']
+let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
+let g:tex_fold_enabled=1
+let g:vimsyn_folding='af'
+let g:xml_syntax_folding = 1
+let g:ruby_folding = 1
+let g:python_folding = 1
+let g:javascript_folding = 1
+"let javaScript_fold=1         " JavaScript
