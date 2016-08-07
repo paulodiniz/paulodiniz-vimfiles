@@ -44,6 +44,7 @@
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Sets how many lines of history VIM has to remember
+execute pathogen#infect()
 set history=700
 set nocompatible
 filetype off
@@ -53,30 +54,36 @@ set rtp+=~/.vim/bundle/Vundle.vim
 
 call vundle#begin()
 
-Bundle 'tpope/vim-sensible'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-rake'
-Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'nanotech/jellybeans.vim'
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
-Bundle 'kien/ctrlp.vim'
-Bundle 'rking/ag.vim'
-Bundle 'kana/vim-textobj-user'
-Bundle 'nelstrom/vim-textobj-rubyblock'
-Bundle 'slim-template/vim-slim'
-Bundle 'thoughtbot/vim-rspec'
-Bundle 'elixir-lang/vim-elixir'
-Bundle 'matze/vim-move'
-Bundle 'scrooloose/nerdcommenter'
+Plugin 'tpope/vim-sensible'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-rake'
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-repeat'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'nanotech/jellybeans.vim'
+Plugin 'Lokaltog/vim-powerline'
+Plugin 'kien/ctrlp.vim'
+Plugin 'rking/ag.vim'
+Plugin 'kana/vim-textobj-user'
+Plugin 'nelstrom/vim-textobj-rubyblock'
+Plugin 'slim-template/vim-slim'
+Plugin 'thoughtbot/vim-rspec'
+Plugin 'elixir-lang/vim-elixir'
+Plugin 'matze/vim-move'
 Plugin 'kchmck/vim-coffee-script'
-Bundle 'godlygeek/tabular'
-Bundle 'Konfekt/FastFold'
+Plugin 'godlygeek/tabular'
+Plugin 'Konfekt/FastFold'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'benmills/vimux'
+Plugin 'jgdavey/vim-turbux'
 
 call vundle#end()
 filetype plugin indent on
@@ -171,8 +178,6 @@ set ttymouse=xterm2
 " Enable syntax highlighting
 syntax enable
 
-colorscheme desert
-set background=dark
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -449,20 +454,16 @@ let NERDTreeIgnore = ['\.pyc$']
 let NERDTreeShowHidden=1
 set nu
 
-" Copies the file name
-nnoremap <leader>cp  :let @*=expand("%:p")<CR>
-
 
 " RSpec.vim mappings
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-map <Leader>a :call RunAllSpecs()<CR>
+"map <Leader>t :call RunCurrentSpecFile()<CR>
+"map <Leader>s :call RunNearestSpec()<CR>
+"map <Leader>l :call RunLastSpec()<CR>
+"map <Leader>a :call RunAllSpecs()<CR>
 
 let g:rspec_command = "!bundle exec rspec {spec}"
 :nmap p :pu<CR>
 set clipboard=unnamed
-
 
 :let @" = expand("%:p")
 :nmap cp :let @" = expand("%")
@@ -486,3 +487,11 @@ let g:ruby_folding = 1
 let g:python_folding = 1
 let g:javascript_folding = 1
 "let javaScript_fold=1         " JavaScript
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_solarized_normal_green = 1
+let g:turbux_command_prefix = 'bundle exec'
+
+let g:solarized_termcolors=256
+set background=dark
+colorscheme solarized
